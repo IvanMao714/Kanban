@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '16'
 
       # # 前端构建
       # - name: Build frontend
@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: "./server/*"  # 上传后端代码
-          target: "/www/wwwroot/kanban/server"  # 服务器上的后端文件目录
+          target: "/root/kanban/server"  # 服务器上的后端文件目录
 
       # 连接服务器并重启后端服务
       - name: Restart backend service
@@ -55,6 +55,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd /www/wwwroot/kanban/server
+            cd /root/kanban/server
             yarn install
-            pm2 restart express-app  # 假设用 PM2 启动后端应用
+            pm2 describe express-app &> /dev/null
+            if [ $? -ne 0 ]; then
+              pm2 start app.js --name express-app
+            else
+              pm2 restart express-app --update-env
+            fi
+      # pm2 restart express-app  # 假设用 PM2 启动后端应用
