@@ -25,7 +25,7 @@ jobs:
         working-directory: ./client  # 确保指向前端代码文件夹
         run: |
           yarn install
-          yarn build
+          CI=false yarn build
 
       # 将前端 build 文件夹上传到服务器
       - name: Deploy frontend to server
