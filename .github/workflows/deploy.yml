@@ -24,7 +24,7 @@ jobs:
       - name: Build frontend
         working-directory: ./client  # 确保指向前端代码文件夹
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       # 将前端 build 文件夹上传到服务器
