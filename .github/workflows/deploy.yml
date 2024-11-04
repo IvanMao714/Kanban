@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: "./server/*"  # 上传后端代码
-          target: "/root/kanban/server"  # 服务器上的后端文件目录
+          target: "/root/kanban"  # 服务器上的后端文件目录
 
       # 连接服务器并重启后端服务
       - name: Restart backend service
