@@ -24,8 +24,8 @@ jobs:
       - name: Build frontend
         working-directory: ./client  # 确保指向前端代码文件夹
         run: |
-          npm install --legacy-peer-deps
-          npm run build
+          yarn install
+          yarn build
 
       # 将前端 build 文件夹上传到服务器
       - name: Deploy frontend to server
@@ -56,5 +56,5 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd /www/wwwroot/kanban/server
-            npm install
+            yarn install
             pm2 restart express-app  # 假设用 PM2 启动后端应用
