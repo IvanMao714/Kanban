@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: "./client/build/*"  # 上传构建文件
-          target: "/root/kanban"  # Nginx 可访问的目标目录
+          target: "/var/www/kanban"  # Nginx 可访问的目标目录
 
       # 上传后端代码到服务器
       - name: Deploy backend to server
@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: "./server/*"  # 上传后端代码
-          target: "/root/kanban"  # 服务器上的后端文件目录
+          target: "/var/www/kanban"  # 服务器上的后端文件目录
 
       # 连接服务器并重启后端服务
       - name: Restart backend service
@@ -55,7 +55,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd /root/kanban/server
+            cd /var/www/kanban/server
             yarn install
             pm2 describe express-app &> /dev/null
             if [ $? -ne 0 ]; then
