@@ -215,6 +215,14 @@ const TaskModal = props => {
                   onChange={updateContent}
                   onFocus={updateEditorHeight}
                   onBlur={updateEditorHeight}
+                  config={{
+                    // 添加自定义样式
+                    editor: {
+                      body: {
+                        backgroundColor: 'black',
+                      },
+                    },
+                  }}
                 />
               </Box>
             </Box>
@@ -241,9 +249,14 @@ const TaskModal = props => {
              <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Deadline"
-                value={task !== undefined ? new Date(task.deadline) : null}
-                onChange={(newDate) => updateDeadline(newDate)}
-                renderInput={(params) => <TextField {...params} fullWidth sx={{ marginTop: '1.5rem' }} />}
+                value={task !== undefined && task.deadline !== null? new Date(task.deadline) : null}
+                onChange={(newDate) => {
+                  const estDate = new Date(
+                    newDate.toLocaleString("en-US", { timeZone: "America/New_York" })
+                  );
+                  console.log(estDate)
+                  updateDeadline(estDate)}}
+                renderInput={(params) => <TextField {...params} fullWidth sx={{ marginTop: '1.5rem' }}/>}
               />
             </LocalizationProvider>
 
