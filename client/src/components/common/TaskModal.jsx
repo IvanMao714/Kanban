@@ -115,11 +115,12 @@ const TaskModal = props => {
 
   const updateDeadline = async (date) => {
     clearTimeout(timer)
-    const newDeadline = Moment(date).format('YYYY-MM-DD')
+    const newDeadline = Moment(date).toDate();
+    // console.log(newDeadline)
     timer = setTimeout(async () => {
       try {
         await taskApi.update(boardId, task.id, { deadline: newDeadline })
-        console.log('update deadline')
+        // console.log('update deadline')
       } catch (err) {
         alert(err)
       }

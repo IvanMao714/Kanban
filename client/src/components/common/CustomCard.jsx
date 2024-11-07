@@ -5,10 +5,10 @@ import { differenceInDays, parseISO } from 'date-fns';
 const CustomCard = React.forwardRef(
     ({ task, isDragging, onClick, ...providedProps }, ref) => {
         // 解析并计算与当前日期的时间差
-        console.log("task:"+task.deadline);
+        console.log(task.title +":"+ task.deadline);
         const deadline = task.deadline ? parseISO(task.deadline) : null;
         const daysUntilDeadline = deadline ? differenceInDays(deadline, new Date()) : null;
-
+        console.log(task.title +":"+daysUntilDeadline);
         // 字体颜色：小于一周为红色，否则为黑色
         const deadlineColor = daysUntilDeadline !== null && daysUntilDeadline <= 7 ? 'red' : 'white';
 
